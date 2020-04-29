@@ -13,6 +13,7 @@ export default {
   },
   data(){
     return {
+      //without JSON Project
       todos : [
         {
           id : 1,
