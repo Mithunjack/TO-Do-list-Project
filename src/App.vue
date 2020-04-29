@@ -6,6 +6,7 @@
 
 <script>
 import Todo from "./components/Todo";
+import axios from "axios";
 export default {
   name: 'App',
   components: {
@@ -14,34 +15,18 @@ export default {
   data(){
     return {
       //without JSON Project
-      todos : [
-        {
-          id : 1,
-          title : "Todo one",
-          completed : true
-        },
-        {
-          id : 2,
-          title : "Todo Two",
-          completed : true
-        },
-        {
-          id : 3,
-          title : "Todo three",
-          completed : false
-        },
-        {
-          id : 4,
-          title : "Todo four",
-          completed : false
-        },
-      ]
+      todos : []
     }
   },
   methods: {
     deleteItem(id){
       this.todos =  this.todos.filter(todo => todo.id !== id);
     }
+  },
+  created() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+            .then(res => this.todos = res.data )
+            .catch(err => console.log(err));
   }
 }
 </script>
@@ -60,7 +45,6 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 500px;
   border: 1px solid darkgrey;
 }
 </style>
