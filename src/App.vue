@@ -2,7 +2,8 @@
   <div id="app">
     <Header></Header>
     <AddTodo v-on:add-Todo="addTodo"></AddTodo>
-    <Todo v-bind:todos="todos" v-on:del-todo="deleteItem"></Todo>
+    <Todo v-bind:todos="todos" v-on:del-todo="deleteItem" class="main-container"></Todo>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -11,9 +12,11 @@ import Todo from "./components/Todo";
 import axios from "axios";
 import Header from "./components/layout/Header";
 import AddTodo from "./components/AddTodo";
+import Footer from "./components/layout/Footer";
 export default {
   name: 'App',
   components: {
+    Footer,
     AddTodo,
     Header,
     Todo
@@ -42,7 +45,7 @@ export default {
     }
   },
   created() {
-    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=5")
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=4")
             .then(res => this.todos = res.data )
             .catch(err => console.log(err));
   }
@@ -58,11 +61,15 @@ body{
   align-items: center;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   border: 1px solid darkgrey;
+}
+.main-container{
+  max-height: 600px;
+  overflow-y: auto;
 }
 </style>

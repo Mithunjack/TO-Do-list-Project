@@ -4,7 +4,7 @@
         <div class="title-item" v-bind:class="{'completed-task' : todo.completed }" >
             <input type="checkbox" v-on:change="clicked">
             {{todo.title}}
-            <button class="delete-button" v-on:click="$emit('del-todo',todo.id)">Delete</button>
+            <button class="delete-button btn" v-on:click="$emit('del-todo',todo.id)">Delete</button>
         </div>
 
     </div>
@@ -26,7 +26,7 @@
     .title-item{
         margin: 15px;
         padding: 30px;
-        border: 1px solid gray;
+        border: 1px solid white;
         box-shadow: 1px 2px 10px 0px #888888;
         font-size: 24px;
     }
@@ -39,7 +39,7 @@
         color: red;
         padding: 10px;
         border-radius: 5px;
-        font-weight: bold;
         cursor: pointer;
+        margin-left: 15px;
     }
 </style>

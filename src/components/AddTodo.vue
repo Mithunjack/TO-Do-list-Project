@@ -1,8 +1,8 @@
 <template>
     <div>
         <form class="form" @submit="addTodo">
-            <input type="text" placeholder="Add new todo..." class="input" v-model="title">
-            <button type="submit"  class="input" >Add</button>
+            <input type="text" placeholder="Add new todo..." class="input form-check" v-model="title">
+            <button type="submit"  class="input btn" >Add</button>
         </form>
     </div>
 </template>
