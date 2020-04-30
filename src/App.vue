@@ -1,47 +1,53 @@
 <template>
   <div id="app">
-    <Todo v-bind:todos="todos" v-on:del-todo="deleteItem"></Todo>
+    <Header></Header>
+    <AddTodo v-on:add-Todo="addTodo"></AddTodo>
+    <Todo v-bind:todos="todos" v-on:del-todo="deleteItem" class="main-container"></Todo>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Todo from "./components/Todo";
+import axios from "axios";
+import Header from "./components/layout/Header";
+import AddTodo from "./components/AddTodo";
+import Footer from "./components/layout/Footer";
 export default {
   name: 'App',
   components: {
+    Footer,
+    AddTodo,
+    Header,
     Todo
   },
   data(){
     return {
       //without JSON Project
-      todos : [
-        {
-          id : 1,
-          title : "Todo one",
-          completed : true
-        },
-        {
-          id : 2,
-          title : "Todo Two",
-          completed : true
-        },
-        {
-          id : 3,
-          title : "Todo three",
-          completed : false
-        },
-        {
-          id : 4,
-          title : "Todo four",
-          completed : false
-        },
-      ]
+      todos : []
     }
   },
   methods: {
+    addTodo(newTodo){
+      const {title , completed } = newTodo;
+      axios.post('https://jsonplaceholder.typicode.com/todos',{title,completed})
+              .then(res => this.todos = [...this.todos , res.data])
+              .catch(err => console.log(err));
+
+      console.log(this.todos)
+
+    },
     deleteItem(id){
-      this.todos =  this.todos.filter(todo => todo.id !== id);
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+              .then(() => this.todos =  this.todos.filter(todo => todo.id !== id))
+              .catch(err => console.log(err));
+
     }
+  },
+  created() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=4")
+            .then(res => this.todos = res.data )
+            .catch(err => console.log(err));
   }
 }
 </script>
@@ -55,12 +61,15 @@ body{
   align-items: center;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  width: 500px;
   border: 1px solid darkgrey;
+}
+.main-container{
+  max-height: 600px;
+  overflow-y: auto;
 }
 </style>

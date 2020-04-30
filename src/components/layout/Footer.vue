@@ -1,20 +1,20 @@
 <template>
-    <div class="header">
-        <header>First Vue Project</header>
+    <div>
+        <footer class="footer">This is a Footer</footer>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Header"
+        name: "Footer"
     }
 </script>
 
 <style scoped>
-    .header{
+    .footer{
         background-color: #2c3e50;
-        font-size: 40px;
-        padding: 30px;
+        font-size: 20px;
+        padding: 20px;
         color: aliceblue;
         display: flex;
         align-items: center;
